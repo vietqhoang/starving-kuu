@@ -6,23 +6,31 @@ module StarvingKuu
   # Responsible for handling user prompts
   class Prompt
     def start
-      main_menu
+      main_screen
     end
 
     private
 
-    def main_menu
-      case main_menu_prompt
-      when :sample_restaurant
-        sample_restaurant_message
-      when :exit
-        exit_message
-      end
+    def main_screen
+      template_screen
+    end
+
+    def sample_restaurant_screen
+      template_screen { sample_restaurant_message }
+    end
+
+    def template_screen
+      yield if block_given?
+      send(main_menu_prompt)
+    end
+
+    def exit
+      exit_message
     end
 
     def main_menu_prompt
       prompt.select('What would you like to do?') do |menu|
-        menu.choice name: 'Give me a random restaurant', value: :sample_restaurant
+        menu.choice name: 'Give me a random restaurant', value: :sample_restaurant_screen
         menu.choice name: 'Exit', value: :exit
       end
     end
