@@ -1,13 +1,7 @@
-require 'yaml'
+run_prompt = ARGV.include?('prompt')
 
-class StarvingKuu
-  RESTAURANT_DATA_ABSOLUTE_PATH = File.expand_path('../_data/restaurants.yml', File.dirname(__FILE__)).freeze
+Dir['lib/starving_kuu/*.rb'].each { |file| require_relative(file.delete_prefix('lib/')) }
 
-  def initialize
-    @restaurants = YAML.load_file(RESTAURANT_DATA_ABSOLUTE_PATH)
-  end
+module StarvingKuu; end
 
-  def sample_restaurant
-    @restaurants.sample
-  end
-end
+StarvingKuu::Prompt.new.start if run_prompt
