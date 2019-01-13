@@ -48,7 +48,7 @@ module StarvingKuu
 
         Starving Kuu chooses...
 
-        #{highlight_result(restaurant_selector.sample_restaurant)}
+        #{highlight_result(restaurant_selector.sample)}
 
       )
     end
@@ -58,7 +58,7 @@ module StarvingKuu
     end
 
     def restaurant_selector
-      StarvingKuu::RestaurantSelector.new
+      StarvingKuu::Restaurant.new
     end
 
     def prompt

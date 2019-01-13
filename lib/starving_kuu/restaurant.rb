@@ -4,7 +4,7 @@ require 'yaml'
 
 module StarvingKuu
   # Responsible for randomly selecting a restaurant
-  class RestaurantSelector
+  class Restaurant
     RESTAURANT_DATA_ABSOLUTE_PATH = '_data/restaurants.yml'
 
     attr_accessor :restaurants
@@ -13,11 +13,20 @@ module StarvingKuu
       @restaurants = restaurant_data
     end
 
-    def sample_restaurant
+    def sample
       @restaurants.sample
     end
 
     private
+
+    def validate_restaurants(value)
+      raise TypeError, 'restaurants must be an Array' unless value.is_a?(Array)
+      value.each { |element| validate_restaurant(element) }
+    end
+
+    def validate_restaurant(value)
+      raise TypeError, 'restaurant must be a String' unless value.is_a?(String)
+    end
 
     def restaurant_data
       load_restaurant_data

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe StarvingKuu::RestaurantSelector do
+RSpec.describe StarvingKuu::Restaurant do
   describe '#restaurants' do
     context 'when the restaurant data file exists' do
       context 'and when the restaurant data is empty' do
@@ -36,13 +36,13 @@ RSpec.describe StarvingKuu::RestaurantSelector do
     end
   end
 
-  describe '#sample_restaurant' do
+  describe '#sample' do
     let(:restaurants) { ['McDonalds', 'Burger King', 'Wendys', 'Chipotle'] }
 
     before { allow(YAML).to receive(:load_file).with(described_class::RESTAURANT_DATA_ABSOLUTE_PATH).and_return(restaurants) }
 
     it 'returns a random restaurant' do
-      expect(restaurants).to include(described_class.new.sample_restaurant)
+      expect(restaurants).to include(described_class.new.sample)
     end
   end
 end
