@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe StarvingKuu::RestaurantSelector do
   describe '#sample_restaurant' do
     it 'returns a random restaurant' do
