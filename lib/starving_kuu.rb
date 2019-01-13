@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-run_prompt = ARGV.include?('prompt')
+Dir['lib/starving_kuu/*.rb'].each { |file| require_relative File.join('..', file) }
 
-Dir['lib/starving_kuu/*.rb'].each { |file| require_relative(file.delete_prefix('lib/')) }
-
+# This is the top namespace module for the application
 module StarvingKuu; end
+
+run_prompt = ARGV.include?('prompt')
 
 StarvingKuu::Prompt.new.start if run_prompt

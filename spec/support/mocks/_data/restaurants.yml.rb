@@ -4,10 +4,10 @@ module Fixtures
   module RestaurantHelpers
     def restaurants
       [
-        "McDonalds",
-        "Burger King",
-        "Wendys",
-        "Chipotle"
+        'McDonalds',
+        'Burger King',
+        'Wendys',
+        'Chipotle'
       ]
     end
   end

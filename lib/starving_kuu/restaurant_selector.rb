@@ -3,8 +3,9 @@
 require 'yaml'
 
 module StarvingKuu
+  # Responsible for randomly selecting a restaurant
   class RestaurantSelector
-    RESTAURANT_DATA_ABSOLUTE_PATH = File.expand_path('../../_data/restaurants.yml', File.dirname(__FILE__)).freeze
+    RESTAURANT_DATA_ABSOLUTE_PATH = '_data/restaurants.yml'.freeze
 
     def initialize
       @restaurants = YAML.load_file(RESTAURANT_DATA_ABSOLUTE_PATH)

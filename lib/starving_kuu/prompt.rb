@@ -3,6 +3,7 @@
 require 'tty-prompt'
 
 module StarvingKuu
+  # Responsible for handling user prompts
   class Prompt
     def start
       main_menu
@@ -27,21 +28,25 @@ module StarvingKuu
     end
 
     def exit_message
-      puts %{
+      puts %(
 
         Starving Kuu says good bye!
 
-      }
+      )
     end
 
     def sample_restaurant_message
-      puts %{
+      puts %(
 
         Starving Kuu chooses...
 
-        #{stylize.decorate(restaurant_selector.sample_restaurant, :bold, :green, :on_black)}
+        #{highlight_result(restaurant_selector.sample_restaurant)}
 
-      }
+      )
+    end
+
+    def highlight_result(result)
+      stylize.decorate(result, :bold, :green, :on_black)
     end
 
     def restaurant_selector

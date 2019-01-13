@@ -104,4 +104,4 @@ RSpec.configure do |config|
 =end
 end
 
-Dir['spec/support/**/*.rb'].sort.each { |file| require_relative file.delete_prefix('spec/') }
+Dir['spec/support/**/*.rb'].each { |file| require_relative File.join('..', file) }
