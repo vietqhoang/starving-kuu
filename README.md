@@ -6,7 +6,7 @@ The restaurant selector got a lot of use at the time, but has since been abandon
 
 Flash forward to today we have one individual who started learning programming. And being one of the few developers in our company it is my job to mentor them. We were brain-storming small project ideas and the random restaurant selector came up. We still do lunches at Tofugu, so we thought it'll be a good application for them to build.
 
-While this individual sets out to solve the problem I am behind-the-scenes recreating the application with my current knowledge. The purpose of doing this is to eventually share the project with the individual (and possibly future interested employees) on how managed the work, the design choices made, and comparing coding styles. And what over-engineering looks like (haha). This project honestly didn't need to go beyond the first couple user stories.
+While this individual sets out to solve the problem I am behind-the-scenes recreating the application with my current knowledge. The purpose of doing this is to eventually share the project with the individual (and possibly future interested employees) on how I managed the work, the design choices made, and comparing coding styles. And what over-engineering looks like (haha). This project honestly didn't need to go beyond the first couple user stories.
 
 ## Who is Kuu
 
