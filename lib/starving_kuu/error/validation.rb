@@ -2,6 +2,7 @@
 
 module StarvingKuu
   module Error
-    class Validation; end
+    class Validation < StandardError
+    end
   end
 end

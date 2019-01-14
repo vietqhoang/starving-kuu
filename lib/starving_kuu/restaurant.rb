@@ -18,6 +18,17 @@ module StarvingKuu
       @restaurants.sample
     end
 
+    def save
+      save!
+    rescue StarvingKuu::Error::Validation
+      false
+    end
+
+    def save!
+      validate_restaurants
+      !!write_restaurant_data_file(@restaurants)
+    end
+
     private
 
     def validate_restaurants
@@ -45,7 +56,7 @@ module StarvingKuu
 
     def write_restaurant_data_file(data)
       FileUtils.mkdir_p(File.dirname(RESTAURANT_DATA_PATH))
-      File.open(RESTAURANT_DATA_PATH, 'a') { |f| f.write(data.to_yaml) }
+      File.open(RESTAURANT_DATA_PATH, 'w+') { |f| f.write(data.to_yaml) }
     end
 
     def default_restaurant_data
