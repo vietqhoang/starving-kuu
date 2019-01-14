@@ -29,10 +29,16 @@ module StarvingKuu
     end
 
     def main_menu_prompt
-      prompt.select('What would you like to do?') do |menu|
-        menu.choice name: 'Give me a random restaurant', value: :sample_restaurant_screen
-        menu.choice name: 'Exit', value: :exit
-      end
+      prompt.select('What would you like to do?', main_menu_options)
+    end
+
+    def main_menu_options
+      disable_restaurant_reason = "(#{restaurants.restaurants.length} items)" if restaurants.restaurants.length.zero?
+
+      [
+        { name: 'Give me a random restaurant', value: :sample_restaurant_screen, disabled: disable_restaurant_reason },
+        { name: 'Exit', value: :exit }
+      ]
     end
 
     def exit_message
@@ -48,7 +54,7 @@ module StarvingKuu
 
         Starving Kuu chooses...
 
-        #{highlight_result(restaurant_selector.sample)}
+        #{highlight_result(restaurants.sample)}
 
       )
     end
@@ -57,7 +63,7 @@ module StarvingKuu
       stylize.decorate(result, :bold, :green, :on_black)
     end
 
-    def restaurant_selector
+    def restaurants
       StarvingKuu::Restaurant.new
     end
 
