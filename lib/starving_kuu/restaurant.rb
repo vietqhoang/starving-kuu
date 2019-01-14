@@ -14,10 +14,6 @@ module StarvingKuu
       @restaurants = restaurant_data
     end
 
-    def sample
-      @restaurants.sample
-    end
-
     def save
       save!
     rescue StarvingKuu::Error::Validation

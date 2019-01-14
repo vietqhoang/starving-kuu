@@ -39,16 +39,6 @@ RSpec.describe StarvingKuu::Restaurant do
     end
   end
 
-  describe '#sample' do
-    let(:restaurants) { ['McDonalds', 'Burger King', 'Wendys', 'Chipotle'] }
-
-    before { allow(YAML).to receive(:load_file).with(described_class::RESTAURANT_DATA_PATH).and_return(restaurants) }
-
-    it 'returns a random restaurant' do
-      expect(restaurants).to include(described_instance.sample)
-    end
-  end
-
   describe '#save' do
     it 'returns true' do
       expect(described_instance.save).to eq(true)
