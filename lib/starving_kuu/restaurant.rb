@@ -3,7 +3,7 @@
 require 'yaml'
 
 module StarvingKuu
-  # Responsible for randomly selecting a restaurant
+  # Responsible for restaurant data and operations
   class Restaurant
     RESTAURANT_DATA_ABSOLUTE_PATH = '_data/restaurants.yml'
 
@@ -33,7 +33,7 @@ module StarvingKuu
     rescue Errno::ENOENT => e
       raise unless e.message.include?('No such file or directory')
 
-      create_restaurant_data_file
+      write_restaurant_data_file(default_restaurant_data)
       default_restaurant_data
     end
 
@@ -41,8 +41,8 @@ module StarvingKuu
       YAML.load_file(RESTAURANT_DATA_ABSOLUTE_PATH) || default_restaurant_data
     end
 
-    def create_restaurant_data_file
-      File.open(RESTAURANT_DATA_ABSOLUTE_PATH, 'a') { |f| f.write(default_restaurant_data.to_yaml) }
+    def write_restaurant_data_file(data)
+      File.open(RESTAURANT_DATA_ABSOLUTE_PATH, 'a') { |f| f.write(data.to_yaml) }
     end
 
     def default_restaurant_data
