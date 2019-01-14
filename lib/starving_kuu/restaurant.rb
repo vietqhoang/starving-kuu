@@ -6,7 +6,7 @@ require 'yaml'
 module StarvingKuu
   # Responsible for restaurant data and operations
   class Restaurant
-    RESTAURANT_DATA_ABSOLUTE_PATH = '_data/restaurants.yml'
+    RESTAURANT_DATA_PATH = '_data/restaurants.yml'
 
     attr_accessor :restaurants
 
@@ -40,12 +40,12 @@ module StarvingKuu
     end
 
     def load_restaurant_data
-      YAML.load_file(RESTAURANT_DATA_ABSOLUTE_PATH) || default_restaurant_data
+      YAML.load_file(RESTAURANT_DATA_PATH) || default_restaurant_data
     end
 
     def write_restaurant_data_file(data)
-      FileUtils.mkdir_p(File.dirname(RESTAURANT_DATA_ABSOLUTE_PATH))
-      File.open(RESTAURANT_DATA_ABSOLUTE_PATH, 'a') { |f| f.write(data.to_yaml) }
+      FileUtils.mkdir_p(File.dirname(RESTAURANT_DATA_PATH))
+      File.open(RESTAURANT_DATA_PATH, 'a') { |f| f.write(data.to_yaml) }
     end
 
     def default_restaurant_data
