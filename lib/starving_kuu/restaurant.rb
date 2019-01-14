@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'fileutils'
 require 'yaml'
 
 module StarvingKuu
@@ -43,6 +44,7 @@ module StarvingKuu
     end
 
     def write_restaurant_data_file(data)
+      FileUtils.mkdir_p(File.dirname(RESTAURANT_DATA_ABSOLUTE_PATH))
       File.open(RESTAURANT_DATA_ABSOLUTE_PATH, 'a') { |f| f.write(data.to_yaml) }
     end
 
