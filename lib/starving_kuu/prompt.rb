@@ -5,11 +5,24 @@ require 'tty-prompt'
 module StarvingKuu
   # Responsible for handling user prompts
   class Prompt
+    def initialize
+      @prompt_instance = TTY::Prompt.new
+      @restaurant_instance = StarvingKuu::Restaurant.new
+      @stylize_instance = Pastel.new
+    end
+
     def start
       main_screen
     end
 
     private
+
+    def add_restaurant_screen
+      template_screen do
+        @restaurant_instance.restaurants << @prompt_instance.ask('What is the name of the restaurant?')
+        @restaurant_instance.save
+      end
+    end
 
     def main_screen
       template_screen
@@ -29,10 +42,19 @@ module StarvingKuu
     end
 
     def main_menu_prompt
-      prompt.select('What would you like to do?') do |menu|
-        menu.choice name: 'Give me a random restaurant', value: :sample_restaurant_screen
-        menu.choice name: 'Exit', value: :exit
-      end
+      @prompt_instance.select('What would you like to do?', main_menu_options)
+    end
+
+    def main_menu_options
+      [
+        { name: 'Give me a random restaurant', value: :sample_restaurant_screen, disabled: disable_restaurant_reason },
+        { name: 'Add restaurant', value: :add_restaurant_screen },
+        { name: 'Exit', value: :exit }
+      ]
+    end
+
+    def disable_restaurant_reason
+      "(#{@restaurant_instance.restaurants.length} items)" if @restaurant_instance.restaurants.length.zero?
     end
 
     def exit_message
@@ -48,25 +70,13 @@ module StarvingKuu
 
         Starving Kuu chooses...
 
-        #{highlight_result(restaurant_selector.sample_restaurant)}
+        #{highlight_result(@restaurant_instance.restaurants.sample)}
 
       )
     end
 
     def highlight_result(result)
-      stylize.decorate(result, :bold, :green, :on_black)
-    end
-
-    def restaurant_selector
-      StarvingKuu::RestaurantSelector.new
-    end
-
-    def prompt
-      TTY::Prompt.new
-    end
-
-    def stylize
-      Pastel.new
+      @stylize_instance.decorate(result, :bold, :green, :on_black)
     end
   end
 end
