@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe StarvingKuu::Restaurant do
+  let(:restaurant_data_path) { "spec/tmp/#{described_class::RESTAURANT_DATA_PATH}" }
+  before { stub_const("#{described_class}::RESTAURANT_DATA_PATH", restaurant_data_path) }
+  after(:each) { File.delete(restaurant_data_path) if File.exist?(restaurant_data_path) }
+
   describe '#restaurants' do
     context 'when the restaurant data file exists' do
       context 'and when the restaurant data is empty' do
@@ -22,16 +26,14 @@ RSpec.describe StarvingKuu::Restaurant do
     end
 
     context 'when the restaurant data file does not exist' do
-      before { allow(YAML).to receive(:load_file).with(described_class::RESTAURANT_DATA_ABSOLUTE_PATH).and_raise(Errno::ENOENT) }
-
       it 'returns an empty array' do
         expect(described_class.new.restaurants).to eq([])
       end
 
       it 'creates a restaurant data file' do
-        expect(File).to receive(:open).with(described_class::RESTAURANT_DATA_PATH, 'a')
-
         described_class.new.restaurants
+
+        expect(File.exist?(restaurant_data_path)).to eq(true)
       end
     end
   end
