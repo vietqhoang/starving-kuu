@@ -19,13 +19,14 @@ module StarvingKuu
 
     private
 
-    def validate_restaurants(value)
-      raise TypeError, 'restaurants must be an Array' unless value.is_a?(Array)
-      value.each { |element| validate_restaurant(element) }
+    def validate_restaurants
+      raise StarvingKuu::Error::Validation, 'restaurants must be an Array' unless @restaurants.is_a?(Array)
+
+      @restaurants.each { |restaurant| validate_restaurant(restaurant) }
     end
 
-    def validate_restaurant(value)
-      raise TypeError, 'restaurant must be a String' unless value.is_a?(String)
+    def validate_restaurant(restaurant)
+      raise StarvingKuu::Error::Validation, 'restaurant must be a String' unless restaurant.is_a?(String)
     end
 
     def restaurant_data
